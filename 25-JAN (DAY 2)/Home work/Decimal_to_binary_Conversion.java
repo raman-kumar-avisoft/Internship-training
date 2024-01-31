@@ -1,40 +1,60 @@
+import java.util.Scanner;
+
 public class Decimal_to_binary_Conversion{
     public static void main(String[] args) {
-        //        shortcut
-        int num = 16;
-        System.out.println(Integer.toBinaryString(num));
+               shortcut
+       int num = -16;
+       System.out.println(Integer.toBinaryString(num));
 
-//        other way
-//        int org = 16;
-//        int copy = 0;
-//        int num = 1;
-//        int count = 0;
-//        if(org==1){
-//            count++;
-//        }
-//        boolean check = false;
-//        while(num<org){
-//            num *= 2;
-//            count++;
-//            check = true;
-//        }
-//
-//        if(check){
-//            num/=2;
-//        }
-//
-//        String ans = "";
-//
-//        while(count>0){
-//            if((copy + num) <= org){
-//                ans += '1';
-//                copy+=num;
-//            }else{
-//                ans += '0';
+//        Implementation of logic
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Enter the decimal Number");
+//        int decimal_num = sc.nextInt();
+//        int num = decimal_num, i=0;
+//        int binary_number=0;
+//        while(num>0){
+//            if((num&1) == 1){
+//                binary_number += 1*Math.pow(10,i);
 //            }
-//            num/=2;
-//            count--;
+//            num = num>>1;
+//            i++;
 //        }
-//        System.out.println(ans);
+//        System.out.println(binary_number);
+
+// //        For -ve number
+//         String ans = "";
+//         Scanner sc = new Scanner(System.in);
+//         System.out.println("Enter the decimal Number");
+//         int decimal_num = sc.nextInt();
+//         int num = decimal_num, i=0;
+//         int binary_number=0;
+//         while(i<32){
+//             if((num&1) == 1){
+//                 ans += 1;
+//             }else{
+//                 ans += 0;
+//             }
+//             num = num>>1;
+//             i++;
+//         }
+//         System.out.println(ans);
+//         char[] ch = new char[32];
+//         ch = ans.toCharArray();
+//         String ans2 = "";
+//         int j=31;
+//         for(; j>=0; j--){
+//             if(ch[i] == '1'){
+//                 ans2 += "1";
+//                 break;
+//             }else{
+//                 ch[j] = '1';
+//                 ans2 += '1';
+//             }
+//         }
+//         while(j>=0){
+//             ans2 += ch[j];
+//             j--;
+//         }
+//         System.out.println(ans2);
     }
 }
