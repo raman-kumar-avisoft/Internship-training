@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
 public class Value_raised_to_its_Reverse {
-    static int solve(int num, int rev){
+    static long solve(int num, int rev){
         if(rev == 0){
             return 1;
         }
-        return num * solve(num, rev-1);
+        long mod = 1000000007;
+        return (num * solve(num, rev-1) % (int)mod);
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -26,6 +27,6 @@ public class Value_raised_to_its_Reverse {
         System.out.println("number is : "+ num);
         System.out.println("Its reverse is: "+rev);
 
-        System.out.println("Number raised to its reverse is: " + solve(num, rev));
+        System.out.println("Number raised to its reverse is: " + solve(num, rev)%1000000007);
     }
 }
