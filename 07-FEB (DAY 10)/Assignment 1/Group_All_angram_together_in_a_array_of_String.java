@@ -21,20 +21,6 @@ public class Group_All_angram_together_in_a_array_of_String {
             System.out.print(arr[i]+ " ");
         }
 
-//        Creating a arraylist of hashmap of type char, int. To help in finding anagrams
-        ArrayList<HashMap<Character, Integer>> al = new ArrayList<>();
-        for(int i=0; i<len; i++){
-            String word = arr[i];
-            HashMap<Character, Integer> mp =new HashMap<Character, Integer>();
-            for(int j=0; j<word.length(); j++){
-                if(mp.containsKey(arr[i].charAt(j))){
-                    mp.put(arr[i].charAt(j), mp.get(arr[i].charAt(j))+1);
-                }else{
-                    mp.put(arr[i].charAt(j), 1);
-                }
-            }
-            al.add(mp);
-        }
 
 //        Creating a HashSet so that no duplicate value of anagram is repeated in hashset of hashmap (mapping all the string with chars and their counts)
         HashSet<HashMap<Character, Integer>> ans2 = new HashSet<HashMap<Character, Integer>>();
@@ -54,9 +40,18 @@ public class Group_All_angram_together_in_a_array_of_String {
 //        now traversing hashset and for each value in hashset checking the value of its hashmap for respective string
 //        to add the Anagram string together in one space
         for(var k: ans2){
-            for (int i=0; i<len ; i++){
-                if(al.get(i).equals(k)){
-                    System.out.print(arr[i] + " ");
+            for(int i=0; i<len; i++) {
+                String word = arr[i];
+                HashMap<Character, Integer> mp = new HashMap<Character, Integer>();
+                for (int j = 0; j < word.length(); j++) {
+                    if (mp.containsKey(arr[i].charAt(j))) {
+                        mp.put(arr[i].charAt(j), mp.get(arr[i].charAt(j)) + 1);
+                    } else {
+                        mp.put(arr[i].charAt(j), 1);
+                    }
+                }
+                if(k.equals(mp) == true){
+                    System.out.print(arr[i]+ " ");
                 }
             }
             System.out.println();
