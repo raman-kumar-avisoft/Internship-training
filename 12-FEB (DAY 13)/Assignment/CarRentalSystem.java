@@ -130,13 +130,14 @@ class OtherVehicle extends Vehicle{
 }
 class Customer{
     private String name;
-    private static  int uniqueId = 0;
+    private static int id = 1;
+    private int uniqueId;
     private String email;
     private double rentalCost;
-    private ArrayList<Car> rentedCar;
-    private ArrayList<Car> returnedCar;
-    private ArrayList<OtherVehicle> rentedOtherVehicle;
-    private ArrayList<OtherVehicle> returnedOtherVehicle;
+    private ArrayList<Car> rentedCar = new ArrayList<>();
+    private ArrayList<Car> returnedCar = new ArrayList<>();
+    private ArrayList<OtherVehicle> rentedOtherVehicle = new ArrayList<>();
+    private ArrayList<OtherVehicle> returnedOtherVehicle = new ArrayList<>();
 
     Customer(){
         Scanner sc = new Scanner(System.in);
@@ -156,7 +157,7 @@ class Customer{
         System.out.println();
     }
     void setUniqueId(){
-        this.uniqueId = ++uniqueId;
+        this.uniqueId = id++;
     }
     void setName(String data){
         this.name = data;
@@ -274,9 +275,31 @@ public class CarRentalSystem {
                         int op4 = sc.nextInt();
 
                         if(op4 == 1){
-
+                            System.out.print("Enter the unique id of the Car: ");
+                            int ch = sc.nextInt();
+                            int j = checkCar(ch);
+                            if(j==-1){
+                                System.out.println("No record found with this unique id of car");
+                            }else{
+                                Car obj = removeCarVehicle(j);
+                                customerArrayList.get(i).setRentedCar(obj);
+                            }
                         }else if(op4 == 2){
-
+                            System.out.print("Enter the unique id of the Car: ");
+                            int ch = sc.nextInt();
+                            int j = -1;
+                            for(int k=0; k<customerArrayList.get(i).getRentedCar().size(); k++){
+                                if(customerArrayList.get(i).getRentedCar().get(k).getUniqueId() == ch){
+                                    j = k;
+                                    break;
+                                }
+                            }
+                            if(j==-1){
+                                System.out.println("No rented car with this id is found in DB");
+                            }else{
+                                Car obj = customerArrayList.get(i).getRentedCar().remove(j);
+                                carArrayList.add(obj);
+                            }
                         }else{
                             System.out.println("Wrong input selected !!");
                         }
