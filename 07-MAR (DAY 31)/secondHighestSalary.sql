@@ -26,8 +26,13 @@ USE javaInternshipProgram;
 -- Create Employee table
 CREATE TABLE Employee (
     Id INT PRIMARY KEY,
-    Salary INT
+    Salary INT CHECK (Salary < 10000) # this is the right syntax but only issue is that check constraint is not fully compatible by mysql 8.0
 );
+
+SHOW TABLES;
+DROP TABLE Employee;
+
+SELECT * FROM Employee;
 
 -- Insert sample data into Employee table
 INSERT INTO Employee (Id, Salary) VALUES
@@ -35,7 +40,18 @@ INSERT INTO Employee (Id, Salary) VALUES
 (2, 200),
 (3, 300);
 
--- select secondHighestSalary
-SELECT MAX(Salary) AS SecondHighestSalary
-FROM Employee
-WHERE Salary < (SELECT MAX(Salary) FROM Employee);
+SELECT * FROM Employee;
+
+-- select secondHighestSalary (ONE WAY)
+-- SELECT MAX(Salary) AS SecondHighestSalary
+-- FROM Employee
+-- WHERE Salary < (SELECT MAX(Salary) FROM Employee);
+
+-- select secondHighestSalary (SECOND WAY)
+SELECT Salary AS SecondHighestSalary FROM Employee e1
+WHERE 2 = (
+SELECT COUNT(e2.Salary)
+FROM employee e2
+WHERE e2.Salary >= e1.Salary
+);
+ 
