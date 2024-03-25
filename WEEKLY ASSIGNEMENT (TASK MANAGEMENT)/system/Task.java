@@ -1,6 +1,7 @@
 package task.management.system;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -19,10 +20,9 @@ public class Task {
     void setAttributes(){
         Scanner scannerInteger = new Scanner(System.in);
         Scanner scannerString = new Scanner(System.in);
-        boolean continueLooping = true;
-        int maxWrongTries = 2;
+        int maxWrongTries = 3;
 
-        while(continueLooping){
+        while(--maxWrongTries >= 0){
             try{
                 System.out.print("Enter the Task Title: ");
                 String taskTitle = scannerString.nextLine();
@@ -54,7 +54,8 @@ public class Task {
                 LocalDateTime currentDateTime = LocalDateTime.now();                                                    // GET CURRENT DATE AND TIME
                 System.out.print("Enter the Due Date(yyyy-MM-dd HH:mm:ss): ");
                 String dueDateString = scannerString.nextLine();
-                LocalDateTime dueDateTime = LocalDateTime.parse(dueDateString);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime dueDateTime = LocalDateTime.parse(dueDateString, formatter);
                 int comparison = dueDateTime.compareTo(currentDateTime);
 
                 if (comparison < 0 || comparison == 0) {
@@ -65,19 +66,17 @@ public class Task {
                 setStatus("Pending");
                 setTaskCreated(true);
 
+                break;
             } catch(InputMismatchException inputMismatchException){
                 System.out.println("NOT A VALID NUMBER **");
             } catch(DateTimeParseException dateTimeParseException){
                 System.out.println("NOT A VALID DATE AND TIME **");
-            }
-            catch(CustomException customException){
+            } catch(CustomException customException){
                 System.out.println(customException.getMessage());
-            }finally {
-                if(maxWrongTries-- == 0){
-                    System.out.println("TOO MANY WRONG TRIES **");
-                    continueLooping = false;
-                }
             }
+        }
+        if(maxWrongTries < 0){
+            System.out.println("TOO MANY WRONG TRIES **");
         }
     }
     void setTaskTitle(String taskTitle){
